@@ -14,6 +14,15 @@ pub mod root {
     use super::*;
 
     pub fn send_kwek(ctx: Context<SendKwek>, topic: String, content: String) -> ProgramResult {
+        let kwek = &mut ctx.accounts.kwek;
+        let author = &ctx.accounts.author;
+        let clock = Clock::get().unwrap();
+
+        kwek.author = *author.key;
+        kwek.timestamp = clock.unix_timestamp;
+        kwek.topic = topic;
+        kwek.content = content;
+
         Ok(())
     }
 }
