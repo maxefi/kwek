@@ -19,7 +19,7 @@ const MAX_CONTENT_LENGTH: usize = 280 * 4; // 280 chars max.
 
 // 3. Add a constant on the Kwek account that provides its total size.
 impl Kwek {
-    const LEN: usize = DISCRIMINATOR_LENGTH
+    pub const LEN: usize = DISCRIMINATOR_LENGTH
       + PUBLIC_KEY_LENGTH // Author.
       + TIMESTAMP_LENGTH // Timestamp.
       + STRING_LENGTH_PREFIX + MAX_TOPIC_LENGTH // Topic
