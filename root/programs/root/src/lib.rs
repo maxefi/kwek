@@ -1,8 +1,9 @@
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::entrypoint::ProgramResult;
 
+use crate::error_code::enums::ErrorCode;
 use crate::send_kwek::structs::*;
 
+pub mod error_code;
 pub mod kwek;
 pub mod send_kwek;
 
@@ -10,10 +11,17 @@ declare_id!("3Zvdo2ZAKwygZJu3vadbwndzJcDw9RaLAWw4nLqcs9b8");
 
 #[program]
 pub mod root {
-
     use super::*;
 
-    pub fn send_kwek(ctx: Context<SendKwek>, topic: String, content: String) -> ProgramResult {
+    pub fn send_kwek(ctx: Context<SendKwek>, topic: String, content: String) -> Result<()> {
+        if topic.chars().count() > 50 {
+            return Err(error!(ErrorCode::TopicTooLong));
+        }
+
+        if content.chars().count() > 280 {
+            return Err(error!(ErrorCode::ContentTooLong));
+        }
+
         let kwek = &mut ctx.accounts.kwek;
         let author = &ctx.accounts.author;
         let clock = Clock::get().unwrap();
