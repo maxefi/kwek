@@ -9,16 +9,16 @@ module.exports = defineConfig({
         Buffer: ["buffer", "Buffer"],
       }),
     ],
-  },
-  resolve: {
-    fallback: {
-      crypto: false,
-      fs: false,
-      assert: false,
-      process: false,
-      util: false,
-      path: false,
-      stream: false,
+    resolve: {
+      fallback: {
+        crypto: false,
+        fs: false,
+        assert: false,
+        process: false,
+        util: false,
+        path: false,
+        stream: false,
+      },
     },
   },
 });
