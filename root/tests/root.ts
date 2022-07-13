@@ -4,9 +4,9 @@ import { Root } from "../target/types/root";
 import { faker } from "@faker-js/faker";
 import * as assert from "assert";
 import { KwekAccount } from "../app/src/interfaces";
+import * as bs58 from "bs58";
 
 describe("root", () => {
-  // Configure the client to use the local cluster.
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
@@ -23,7 +23,7 @@ describe("root", () => {
       "The provided content should be 280 characters long maximum.";
 
     /*
-     * TODO: fix 'kwekAccount' type
+     * TODO: fix `kwekAccount` type
      * let kwekAccount: TypeDef<IdlTypeDef, anchor.IdlTypes<anchor.Idl>>;
      * */
     let kwekAccount: KwekAccount;
@@ -302,6 +302,110 @@ describe("root", () => {
 
       it("MUST contain 'timestamp'", () => {
         assert.ok(kwekAccount.timestamp);
+      });
+    });
+
+    /*
+     * TODO: 2 empty `describe` blocks are added
+     * to make this test run as the last one,
+     * can it be fixed somehow?
+     * */
+    describe("", () => {
+      describe("", () => {
+        it("WHEN all 'kwek' accounts are fetched, MUST return all previously created 'kwek' accounts", async () => {
+          const kwekAccounts = await program.account.kwek.all();
+
+          /*
+           * created by previously ran tests, in next `describe` blocks:
+           * - `AND 'topic' and 'content' are passed`,
+           * - `AND only 'content' is passed`,
+           * - `AND 'otherUser' is an 'author' and presented in 'signers' AND 'topic' and 'content' are passed`,
+           * */
+          assert.equal(kwekAccounts.length, 12);
+        });
+      });
+    });
+
+    describe("", () => {
+      describe("WHEN 'kwek' accounts are filtered by 'author'", () => {
+        const authorPublicKey = provider.wallet.publicKey;
+
+        /*
+         * TODO: fix `kwekAccounts` type
+         * */
+        let kwekAccounts;
+
+        beforeEach(async () => {
+          kwekAccounts = await program.account.kwek.all([
+            {
+              memcmp: {
+                /*
+                 * see `DISCRIMINATOR_LENGTH`
+                 * */
+                offset: 8,
+                bytes: provider.wallet.publicKey.toBase58(),
+              },
+            },
+          ]);
+        });
+
+        it("MUST return all previously created 'kwek' accounts by that 'author'", async () => {
+          /*
+           * created by previously ran tests, in next `describe` blocks:
+           * - `AND 'topic' and 'content' are passed`,
+           * - `AND only 'content' is passed`,
+           * */
+          assert.equal(kwekAccounts.length, 8);
+        });
+
+        it("MUST return only 'kwek' accounts with 'account.author' field equals to 'author'", () => {
+          assert.ok(
+            kwekAccounts.every(
+              ({ account }) =>
+                account.author.toBase58() === authorPublicKey.toBase58()
+            )
+          );
+        });
+      });
+    });
+
+    describe("", () => {
+      describe("WHEN 'kwek' accounts are filtered by 'topic'", () => {
+        const authorPublicKey = provider.wallet.publicKey;
+
+        /*
+         * TODO: fix `kwekAccounts` type
+         * */
+        let kwekAccounts;
+
+        beforeEach(async () => {
+          kwekAccounts = await program.account.kwek.all([
+            {
+              memcmp: {
+                /*
+                 * `DISCRIMINATOR_LENGTH` + `PUBLIC_KEY_LENGTH` + `TIMESTAMP_LENGTH` + `STRING_LENGTH_PREFIX`
+                 * */
+                offset: 8 + 32 + 8 + 4,
+                bytes: bs58.encode(Buffer.from(topic)),
+              },
+            },
+          ]);
+        });
+
+        it("MUST return all previously created 'kwek' accounts with that 'topic'", async () => {
+          /*
+           * created by previously ran tests, in next `describe` blocks:
+           * - `AND 'topic' and 'content' are passed`,
+           * - `AND 'otherUser' is an 'author' and presented in 'signers' AND 'topic' and 'content' are passed`,
+           * */
+          assert.equal(kwekAccounts.length, 8);
+        });
+
+        it("MUST return only 'kwek' accounts with 'account.topic' field equals to 'topic'", () => {
+          assert.ok(
+            kwekAccounts.every(({ account }) => account.topic === topic)
+          );
+        });
       });
     });
   });
