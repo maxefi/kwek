@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "@project-serum/anchor": "^0.25.0",
+    "autoprefixer": "^10.4.7",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "postcss": "^8.4.14",
+    "vue": "^3.2.13",
+    "tailwindcss": "^3.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
