@@ -266,7 +266,7 @@ describe("root", () => {
         otherUser = anchor.web3.Keypair.generate();
         const signature = await program.provider.connection.requestAirdrop(
           otherUser.publicKey,
-          1000000000
+          1000000000 // 1 SOL
         );
         await program.provider.connection.confirmTransaction(signature);
 
