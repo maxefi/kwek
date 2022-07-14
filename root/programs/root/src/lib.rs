@@ -7,7 +7,7 @@ pub mod error_code;
 pub mod kwek;
 pub mod send_kwek;
 
-declare_id!("CoCn6sX8FFfS1kMwS9iqqFPJCAb358ziYFySDe5bEeMQ");
+declare_id!("GUS1UXYjFase1FDKtXNwHsht465X9KKwy5bYVKTUKPGA");
 
 #[program]
 pub mod root {

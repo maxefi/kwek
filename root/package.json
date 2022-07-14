@@ -7,7 +7,6 @@
         "build": "rm -r target/ && anchor build && solana address -k target/deploy/root-keypair.json",
         "test": "anchor test",
         "deploy": "anchor deploy",
-        "copy": "node copyIdl.js"
     },
     "dependencies": {
         "@project-serum/anchor": "^0.24.2"
