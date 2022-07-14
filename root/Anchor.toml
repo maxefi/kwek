@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-root = "CmJL3mVAQX8PFTFPynGxFF2KxYuAKpufiXZiwaxc4yN4"
+root = "CoCn6sX8FFfS1kMwS9iqqFPJCAb358ziYFySDe5bEeMQ"
 
 [registry]
 url = "https://anchor.projectserum.com"
