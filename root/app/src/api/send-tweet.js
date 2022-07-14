@@ -7,10 +7,10 @@ export const sendTweet = async (topic, content) => {
 
   const tweet = web3.Keypair.generate();
 
-  await program.value.rpc.sendTweet(topic, content, {
+  await program.value.rpc.sendKwek(topic, content, {
     accounts: {
       author: wallet.value.publicKey,
-      tweet: tweet.publicKey,
+      kwek: tweet.publicKey,
       systemProgram: web3.SystemProgram.programId,
     },
     signers: [tweet],

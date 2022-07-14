@@ -5,7 +5,7 @@ import bs58 from "bs58";
 export const fetchTweets = async (filters = []) => {
   const { program } = useWorkspace();
 
-  const tweets = await program.value.account.tweet.all(filters);
+  const tweets = await program.value.account.kwek.all(filters);
 
   return tweets.map((tweet) => new Tweet(tweet.publicKey, tweet.account));
 };
