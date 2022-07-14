@@ -6,7 +6,7 @@
         "airdrop": "solana airdrop 2",
         "build": "rm -r target/ && anchor build && solana address -k target/deploy/root-keypair.json",
         "test": "anchor test",
-        "deploy": "anchor deploy",
+        "deploy": "anchor deploy"
     },
     "dependencies": {
         "@project-serum/anchor": "^0.24.2"
