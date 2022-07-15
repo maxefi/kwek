@@ -2,12 +2,14 @@
     "scripts": {
         "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
         "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+        "config:local": "solana config set --url localhost",
+        "config:dev": "solana config set --url devnet",
         "balance": "solana balance",
         "airdrop": "solana airdrop 2",
-        "build": "rm -r target/ && anchor build && solana address -k target/deploy/root-keypair.json",
+        "build": "anchor build",
+        "build:clean": "rm -r target/ && anchor build && solana address -k target/deploy/root-keypair.json",
         "test": "anchor test",
-        "deploy": "anchor deploy",
-        "copy": "node copyIdl.js"
+        "deploy": "anchor deploy"
     },
     "dependencies": {
         "@project-serum/anchor": "^0.24.2"
