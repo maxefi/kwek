@@ -9,7 +9,7 @@ config -> balance -> airdrop
 
 ### program
 
-build -> manually copy program ID -> build -> test -> deploy
+build:clean -> manually copy program ID -> build -> test -> deploy
 
 ---
 
